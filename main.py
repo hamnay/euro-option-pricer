@@ -24,15 +24,21 @@ if __name__ == "__main__":
     # Initialize models
     BS = blackScholes(r, sigma, S0, T, n)
     Call = call(K, T)
-
+    Put = put(K, T)
+    
     # Simulate and calculate prices
     st = BS.St(T)  # Simulate stock prices at maturity
-    mc_price = Call.mcPrice(BS)
-    bs_price = Call.bsPrice(0, BS)
+    mc_CallPrice = Call.mcPrice(2, BS)
+    bs_CallPrice = Call.bsPrice(2, BS)
+    
+    mc_PutPrice = Put.mcPrice(0, BS)
+    bs_PutPrice = Put.bsPrice(0, BS)
 
     # Display results
-    print(f"Call Price using MC method: {mc_price:.6f}")
-    print(f"Call Price using closed-form formula: {bs_price:.6f}")
+    print(f"Call Price using MC method: {mc_CallPrice:.6f}")
+    print(f"Call Price using closed-form formula: {bs_CallPrice:.6f}")
+    print(f"Put Price using MC method: {mc_PutPrice:.6f}")
+    print(f"Put Price using closed-form formula: {bs_PutPrice:.6f}")
 
     
     

@@ -48,7 +48,7 @@ class call(option):
         """
         return np.maximum(St - self.K, 0)
 
-    def mcPrice(self, model: Any) -> float:
+    def mcPrice(self, t: float, model: Any) -> float:
         """
         Calculate the option price using the Monte Carlo method.
 
@@ -114,7 +114,7 @@ class put(option):
         """
         return np.maximum(self.K - St, 0)
 
-    def mcPrice(self, model: Any) -> float:
+    def mcPrice(self, t: float, model: Any) -> float:
         """
         Calculate the option price using the Monte Carlo method.
 
@@ -125,9 +125,9 @@ class put(option):
             float: Monte Carlo estimate of the option price.
         """
         st = model.St(self.T)  # Simulate stock prices at maturity
-        return np.exp(-self.T * model.r) * self.payoff(st).mean()
+        return np.exp(-(self.T - t) * model.r) * self.payoff(st).mean()
 
-    def BsPrice(self, t: float, Bsmodel: Any) -> float:
+    def bsPrice(self, t: float, Bsmodel: Any) -> float:
         """
         Calculate the option price using the Black-Scholes formula.
 
